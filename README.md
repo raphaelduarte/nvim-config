@@ -66,6 +66,44 @@ git clone https://github.com/raphaelduarte/nvim-config ~/.config/nvim
 nvim
 ```
 
+### Plano B: Mac da empresa (sem admin / com restrições)
+
+Em máquina corporativa o `brew install` pode falhar por falta de permissão de
+admin, ou a empresa pode bloquear instalar fontes. Dá pra contornar:
+
+**Homebrew sem admin** (instala na sua pasta de usuário, não precisa de sudo):
+
+```sh
+# instala o brew em ~/.homebrew em vez de /opt/homebrew
+mkdir -p ~/.homebrew && curl -L https://github.com/Homebrew/brew/tarball/master \
+  | tar xz --strip-components 1 -C ~/.homebrew
+
+# deixa o brew disponível no shell (adicione também ao seu ~/.zshrc)
+eval "$(~/.homebrew/bin/brew shellenv)"
+
+# agora instala normalmente
+brew install neovim git ripgrep fd lazygit lynx
+```
+
+> Se nem isso for possível, dá pra baixar o Neovim como binário avulso (sem
+> instalar nada): pegue o `nvim-macos-*.tar.gz` em
+> https://github.com/neovim/neovim/releases, descompacte e rode o `bin/nvim`
+> de dentro da pasta. O `ripgrep` e o `fd` também têm binários soltos nos
+> releases deles.
+
+**Rodar sem Nerd Font** (se a empresa bloquear instalar fontes): a config
+funciona normalmente, só os ícones ficam como quadradinhos. Pra esconder os
+ícones em vez de mostrar quadrados, crie o arquivo
+`~/.config/nvim/lua/plugins/no-nerd-font.lua` com:
+
+```lua
+return {
+  { "LazyVim/LazyVim", opts = { icons = { kinds = {} } } },
+}
+```
+
+E no terminal use uma fonte monoespaçada qualquer (Menlo, Monaco, SF Mono).
+
 ## Como ler os atalhos
 
 A notação `<...>` é o jeito do Vim de escrever teclas especiais:
