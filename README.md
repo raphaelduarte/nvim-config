@@ -4,17 +4,65 @@ Minha configuração pessoal do Neovim, baseada no [LazyVim](https://github.com/
 
 ## Instalação
 
-Faça backup da sua config atual e clone esta:
+### macOS (passo a passo)
+
+Pré-requisito: ter o [Homebrew](https://brew.sh) instalado. Se não tiver, rode:
 
 ```sh
-# backup
-mv ~/.config/nvim ~/.config/nvim.bak
-mv ~/.local/share/nvim ~/.local/share/nvim.bak
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
 
-# clonar
+**1. Instale o Neovim e as dependências:**
+
+```sh
+# Neovim + ferramentas que esta config usa
+brew install neovim git ripgrep fd lazygit lynx
+
+# Fonte com ícones (necessária pra ver os ícones do explorer/statusline)
+brew install --cask font-jetbrains-mono-nerd-font
+```
+
+> Depois de instalar a fonte, configure o seu terminal (iTerm2, Terminal.app,
+> Ghostty, etc.) pra usar **"JetBrainsMono Nerd Font"**, senão os ícones viram quadradinhos.
+
+**2. Faça backup de qualquer config antiga do Neovim** (pula se nunca usou):
+
+```sh
+mv ~/.config/nvim ~/.config/nvim.bak 2>/dev/null
+mv ~/.local/share/nvim ~/.local/share/nvim.bak 2>/dev/null
+mv ~/.local/state/nvim ~/.local/state/nvim.bak 2>/dev/null
+mv ~/.cache/nvim ~/.cache/nvim.bak 2>/dev/null
+```
+
+**3. Clone esta config:**
+
+```sh
 git clone https://github.com/raphaelduarte/nvim-config ~/.config/nvim
+```
 
-# abrir (o LazyVim instala os plugins automaticamente)
+**4. Abra o Neovim:**
+
+```sh
+nvim
+```
+
+Na primeira vez o LazyVim baixa e instala todos os plugins sozinho (leva 1-2 min).
+Quando terminar, feche (`:q`) e abra de novo. Pronto.
+
+> **Suporte a linguagens (opcional):** esta config ativa extras de Rust, TypeScript,
+> Java, Go, Clojure, C#/.NET e JSON. Os servidores de LSP são instalados
+> automaticamente pelo Mason, mas eles precisam que a linguagem em si esteja
+> instalada na máquina. Instale só o que for usar, por exemplo:
+> `brew install node go rust openjdk` (e `dotnet` via cask pra C#).
+
+### Linux
+
+Mesma ideia, trocando o gerenciador de pacotes. Ex. no Debian/Ubuntu:
+
+```sh
+sudo apt install neovim git ripgrep fd-find lazygit lynx
+# + instale uma Nerd Font manualmente e configure no terminal
+git clone https://github.com/raphaelduarte/nvim-config ~/.config/nvim
 nvim
 ```
 

@@ -55,7 +55,9 @@ local function google(query)
     return
   end
   local url = "https://www.google.com/search?q=" .. urlencode(query)
-  vim.fn.jobstart({ "xdg-open", url }, { detach = true })
+  -- macOS usa `open`, Linux usa `xdg-open`
+  local opener = vim.fn.has("macunix") == 1 and "open" or "xdg-open"
+  vim.fn.jobstart({ opener, url }, { detach = true })
   vim.notify("Googlando: " .. query)
 end
 
